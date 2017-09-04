@@ -1,10 +1,13 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NavParams } from 'ionic-angular';
+import { Http } from '@angular/http';
+import { RegisterPage } from '../register/register';
+import { HomePage } from '../home/home';
+import 'rxjs/add/operator/map';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+  selector: 'page-login',
+  templateUrl: 'login.html',
 
   animations: [
 
@@ -56,35 +59,52 @@ import { NavParams } from 'ionic-angular';
     ])
   ]
 })
-export class HomePage {
 
-    id: number;
-    name: string;
-    email: string
+export class LoginPage {
 
-  constructor(public navCtrl: NavController, private navParams: NavParams) {
-    this.id = navParams.get('id');
-    this.name = navParams.get('name');
-    this.email = navParams.get('email');
-    this.slides[0].title += navParams.get('name') + '!';
+  logoState: any = "in";
+  cloudState: any = "in";
+  loginState: any = "in";
+  formState: any = "in";
+
+  email: string;
+  password: string;
+
+  constructor(public navCtrl: NavController, private http: Http){
+      this.http = http;
   }
 
-  slides = [
-  {
-    title: "Seja bem-vindo, ",
-    description: "Sinta-se livre para compartilhar tudo (e somente) o que desejar.",
-    image: "assets/images/thinking.png",
-  },
-  {
-    title: "Faça contatos!",
-    description: "<b>Carry On</b> é uma plataforma de relacionamento entre voluntários e pacientes. Procure ajuda sempre que precisar.",
-    image: "assets/images/smartphone.png",
-  },
-  {
-    title: "Cresça com a gente!",
-    description: "Nós da <b> Carry On </b> lhe desejamos uma ótima experiência. Sinta-se à vontade para reportar erros ou problemas e indicar melhorias.",
-    image: "assets/images/employee.png",
+  login() {
+      let body = new FormData();
+    //   let headers = new Headers({ 'Content-Type': 'application/json'});
+      //   let options = new RequestOptions({ headers: headers });
+      body.append('email', this.email);
+      body.append('password', this.password);
+      console.log(body);
+      this.http
+        .post('http://localhost:8000/api/login', body)
+        .map(res => res.json())
+        .subscribe(
+            data => {
+              console.log(data);
+              this.goToHome(data);
+            },
+            err => {
+              console.log("ERROR!: ", err);
+            }
+        );
   }
-];
+
+  goToRegister(){
+      this.navCtrl.push(RegisterPage);
+  }
+
+  goToHome(data){
+      this.navCtrl.push(HomePage, {
+          id : data.id,
+          name : data.name,
+          email: data.email,
+      });
+  }
 
 }

@@ -1,10 +1,12 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NavParams } from 'ionic-angular';
+import { Http } from '@angular/http';
+import { ToastController } from 'ionic-angular';
+import 'rxjs/add/operator/map';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+  selector: 'page-register',
+  templateUrl: 'register.html',
 
   animations: [
 
@@ -56,35 +58,51 @@ import { NavParams } from 'ionic-angular';
     ])
   ]
 })
-export class HomePage {
 
-    id: number;
-    name: string;
-    email: string
+export class RegisterPage {
 
-  constructor(public navCtrl: NavController, private navParams: NavParams) {
-    this.id = navParams.get('id');
-    this.name = navParams.get('name');
-    this.email = navParams.get('email');
-    this.slides[0].title += navParams.get('name') + '!';
+  logoState: any = "in";
+  cloudState: any = "in";
+  loginState: any = "in";
+  formState: any = "in";
+
+  name: string;
+  email: string;
+  password: string;
+  c_password: string
+
+  constructor(public navCtrl: NavController, private http: Http, public toastCtrl: ToastController){
+      this.http = http;
   }
 
-  slides = [
-  {
-    title: "Seja bem-vindo, ",
-    description: "Sinta-se livre para compartilhar tudo (e somente) o que desejar.",
-    image: "assets/images/thinking.png",
-  },
-  {
-    title: "Faça contatos!",
-    description: "<b>Carry On</b> é uma plataforma de relacionamento entre voluntários e pacientes. Procure ajuda sempre que precisar.",
-    image: "assets/images/smartphone.png",
-  },
-  {
-    title: "Cresça com a gente!",
-    description: "Nós da <b> Carry On </b> lhe desejamos uma ótima experiência. Sinta-se à vontade para reportar erros ou problemas e indicar melhorias.",
-    image: "assets/images/employee.png",
+  register() {
+      let body = new FormData();
+      //   let headers = new Headers({ 'Content-Type': 'application/json'});
+      //   let options = new RequestOptions({ headers: headers });
+      body.append('name', this.name);
+      body.append('email', this.email);
+      body.append('password', this.password);
+      body.append('c_password', this.c_password);
+      console.log(body);
+      this.http
+        .post('http://localhost:8000/api/register', body)
+        .map(res => res.json())
+        .subscribe(
+            data => {
+              console.log(data);
+              this.presentToast();
+            },
+            err => {
+              console.log("ERROR!: ", err);
+            }
+        );
   }
-];
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Usuário cadastrado com sucesso!',
+      duration: 3000
+    });
+    toast.present();
+  }
 
 }

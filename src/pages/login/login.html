@@ -1,0 +1,41 @@
+<ion-content>
+
+  <div padding [@flyInBottomFast]="cloudState" id="cloud-layer">
+    <form (ngSubmit)="login()">
+    <ion-row>
+      <ion-col>
+        <img [@flyInBottomSlow]="logoState" src="assets/images/logo.png" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-list inset [@bounceInBottom]="formState">
+
+          <ion-item>
+            <ion-label>E-mail</ion-label>
+            <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Senha</ion-label>
+            <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button class="login-button" [@fadeIn]="loginState" type="submit">Login</button>
+      </ion-col>
+    </ion-row>
+    </form>
+    <ion-row>
+      <ion-col>
+        <button ion-button class="register-button" [@fadeIn]="loginState" (click)="goToRegister()">Cadastrar</button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

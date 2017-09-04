@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Cadastro</ion-title>
+    </ion-navbar>
+  </ion-header>
+<ion-content>
+
+  <div padding [@flyInBottomFast]="cloudState" id="cloud-layer">
+    <form (ngSubmit)="register()">
+    <ion-row>
+      <ion-col>
+        <ion-list inset [@bounceInBottom]="formState">
+        <ion-item>
+            <ion-label>Nome</ion-label>
+            <ion-input type="email" [(ngModel)]="name" name="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>E-mail</ion-label>
+            <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
+        </ion-item>
+        <hr>
+        <ion-item>
+            <ion-label>Senha</ion-label>
+            <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Confirmar Senha</ion-label>
+            <ion-input type="password" [(ngModel)]="c_password" name="c_password"></ion-input>
+        </ion-item>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button class="login-button" [@fadeIn]="loginState" type="submit">Cadastrar</button>
+      </ion-col>
+    </ion-row>
+    </form>
+  </div>
+
+</ion-content>
