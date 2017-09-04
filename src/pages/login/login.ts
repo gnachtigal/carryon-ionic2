@@ -82,7 +82,7 @@ export class LoginPage {
       body.append('password', this.password);
       console.log(body);
       this.http
-        .post('http://localhost:8000/api/login', body)
+        .post('http://phplaravel-113480-323235.cloudwaysapps.com/api/login', body)
         .map(res => res.json())
         .subscribe(
             data => {

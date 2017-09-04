@@ -85,7 +85,7 @@ export class RegisterPage {
       body.append('c_password', this.c_password);
       console.log(body);
       this.http
-        .post('http://localhost:8000/api/register', body)
+        .post('http://phplaravel-113480-323235.cloudwaysapps.com/api/register', body)
         .map(res => res.json())
         .subscribe(
             data => {
