@@ -1,6 +1,7 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
+import { HomePage } from '../home/home';
 import { ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
@@ -90,19 +91,29 @@ export class RegisterPage {
         .subscribe(
             data => {
               console.log(data);
-              this.presentToast();
+              this.presentToast('Usuário cadastrado com sucesso!');
+              this.goToHome(data);
             },
             err => {
-              console.log("ERROR!: ", err);
+                console.log(err);
+              this.presentToast(err.errors);
             }
         );
   }
-  presentToast() {
+  presentToast(msg) {
     let toast = this.toastCtrl.create({
-      message: 'Usuário cadastrado com sucesso!',
+      message: msg,
       duration: 3000
     });
     toast.present();
+  }
+
+  goToHome(data){
+      this.navCtrl.push(HomePage, {
+          id : data.id,
+          name : data.name,
+          email: data.email,
+      });
   }
 
 }
