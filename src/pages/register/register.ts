@@ -1,7 +1,7 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { HomePage } from '../home/home';
+import { PresentationPage } from '../presentation/presentation';
 import { ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
@@ -86,20 +86,27 @@ export class RegisterPage {
       body.append('c_password', this.c_password);
       console.log(body);
       this.http
-        .post('http://phplaravel-113480-323235.cloudwaysapps.com/api/register', body)
+        .post('http://localhost:8000/api/register', body)
         .map(res => res.json())
         .subscribe(
             data => {
               console.log(data);
-              this.presentToast('Usuário cadastrado com sucesso!');
-              this.goToHome(data);
+              if(data.success){
+                  this.presentToast('Usuário cadastrado com sucesso!');
+                  this.goToPresentation(data);
+              }else{
+                  this.presentToast(data.errors[0]);
+              }
+
             },
             err => {
+                JSON.parse(err.errors);
                 console.log(err);
-              this.presentToast(err.errors);
+                this.presentToast(err.errors[0]);
             }
         );
   }
+
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
@@ -108,8 +115,8 @@ export class RegisterPage {
     toast.present();
   }
 
-  goToHome(data){
-      this.navCtrl.push(HomePage, {
+  goToPresentation(data){
+      this.navCtrl.push(PresentationPage, {
           id : data.id,
           name : data.name,
           email: data.email,

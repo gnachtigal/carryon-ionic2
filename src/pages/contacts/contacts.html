@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Contatos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>Últimas conversas</ion-list-header>
+    <button ion-item *ngFor="let user of contacts" (click)="itemSelected(user.id)">
+        <ion-avatar item-start="">
+            <img src="assets/img/avatar-ts-woody.png">
+        </ion-avatar>
+        <div class="item-inner">
+            <div class="input-wrapper">
+                <ion-label class="label label-ios">
+                 <h2>{{user.name}}</h2>
+                 <p>Last message</p>
+                </ion-label>
+            </div>
+            <ion-note item-end="" class="note note-ios">3:43 pm</ion-note><!---->
+        </div>
+        <div class="button-effect"></div>
+    </button>
+  </ion-list>
+</ion-content>

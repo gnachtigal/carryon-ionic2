@@ -2,7 +2,8 @@ import { Component, trigger, state, style, transition, animate, keyframes } from
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { RegisterPage } from '../register/register';
-import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
+import { ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -70,7 +71,7 @@ export class LoginPage {
   email: string;
   password: string;
 
-  constructor(public navCtrl: NavController, private http: Http){
+  constructor(public navCtrl: NavController, private http: Http, public toastCtrl: ToastController){
       this.http = http;
   }
 
@@ -82,12 +83,17 @@ export class LoginPage {
       body.append('password', this.password);
       console.log(body);
       this.http
-        .post('http://phplaravel-113480-323235.cloudwaysapps.com/api/login', body)
+        .post('http://localhost:8000/api/login', body)
         .map(res => res.json())
         .subscribe(
             data => {
-              console.log(data);
-              this.goToHome(data);
+                console.log(data);
+                if(data.success){
+                    this.goToHome(data);
+                    this.presentToast(data.msg);
+                }else{
+                    this.presentToast(data.msg);
+                }
             },
             err => {
               console.log("ERROR!: ", err);
@@ -95,12 +101,20 @@ export class LoginPage {
         );
   }
 
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
+  }
+
   goToRegister(){
       this.navCtrl.push(RegisterPage);
   }
 
   goToHome(data){
-      this.navCtrl.push(HomePage, {
+      this.navCtrl.push(TabsPage, {
           id : data.id,
           name : data.name,
           email: data.email,
