@@ -9,6 +9,7 @@ import { RegisterPage } from '../pages/register/register';
 // Tabs
 import { CommunityPage } from '../pages/community/community';
 import { ContactsPage } from '../pages/contacts/contacts';
+import { ChatPage } from '../pages/chat/chat';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -27,6 +28,7 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     ContactsPage,
     CommunityPage,
+    ChatPage,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     ContactsPage,
     CommunityPage,
+    ChatPage,
   ],
   providers: [StatusBar]
 })

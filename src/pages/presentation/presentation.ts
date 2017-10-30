@@ -1,6 +1,9 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
+import { ToastController } from 'ionic-angular';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'page-presentation',
@@ -58,33 +61,67 @@ import { NavParams } from 'ionic-angular';
 })
 export class PresentationPage {
 
+    user;
     id: number;
     name: string;
     email: string;
 
-  constructor(public navCtrl: NavController, private navParams: NavParams) {
+  constructor(public navCtrl: NavController, private http: Http, private navParams: NavParams, public toastCtrl: ToastController) {
     this.id = navParams.get('id');
     this.name = navParams.get('name');
     this.email = navParams.get('email');
     this.slides[0].title += navParams.get('name') + '!';
   }
 
-  slides = [
-  {
-    title: "Seja bem-vindo, ",
-    description: "Sinta-se livre para compartilhar tudo (e somente) o que desejar.",
-    image: "assets/images/thinking.png",
-  },
-  {
-    title: "Faça contatos!",
-    description: "<b>Carry On</b> é uma plataforma de relacionamento entre voluntários e pacientes. Procure ajuda sempre que precisar.",
-    image: "assets/images/smartphone.png",
-  },
-  {
-    title: "Cresça com a gente!",
-    description: "Nós da <b> Carry On </b> lhe desejamos uma ótima experiência. Sinta-se à vontade para reportar erros ou problemas e indicar melhorias.",
-    image: "assets/images/employee.png",
-  }
-];
+    slides = [
+        {
+            title: "Seja bem-vindo, ",
+            description: "Sinta-se livre para compartilhar tudo (e somente) o que desejar.",
+            image: "assets/images/thinking.png",
+        },
+        {
+            title: "Faça contatos!",
+            description: "<b>Carry On</b> é uma plataforma de relacionamento entre voluntários e pacientes. Procure ajuda sempre que precisar.",
+            image: "assets/images/smartphone.png",
+        },
+        {
+            title: "Cresça com a gente!",
+            description: "Nós da <b> Carry On </b> lhe desejamos uma ótima experiência. Sinta-se à vontade para reportar erros ou problemas e indicar melhorias.",
+            image: "assets/images/employee.png",
+        }
+    ];
+
+    goToHome(){
+        this.user = this.getUser(sessionStorage.getItem('userId'));
+        this.navCtrl.push(TabsPage, {
+            user: this.user
+        });
+    }
+
+    getUser(id){
+        this.http
+          .get('http://localhost:8000/api/user/getAuthenticatedUser/' + id)
+          .map(res => res.json())
+          .subscribe(
+              data => {
+                  if(data.success){
+                      return data.user;
+                  }else{
+                      this.presentToast(data.msg);
+                  }
+              },
+              err => {
+                console.log("ERROR!: ", err);
+              }
+          );
+    }
+
+    presentToast(msg) {
+      let toast = this.toastCtrl.create({
+        message: msg,
+        duration: 3000
+      });
+      toast.present();
+    }
 
 }

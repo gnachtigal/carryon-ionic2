@@ -71,24 +71,26 @@ export class LoginPage {
   email: string;
   password: string;
 
+  data: any;
+
   constructor(public navCtrl: NavController, private http: Http, public toastCtrl: ToastController){
       this.http = http;
   }
 
   login() {
       let body = new FormData();
-    //   let headers = new Headers({ 'Content-Type': 'application/json'});
+      //   let headers = new Headers({ 'Content-Type': 'application/json'});
       //   let options = new RequestOptions({ headers: headers });
       body.append('email', this.email);
       body.append('password', this.password);
-      console.log(body);
       this.http
         .post('http://localhost:8000/api/login', body)
         .map(res => res.json())
         .subscribe(
             data => {
-                console.log(data);
                 if(data.success){
+                    sessionStorage.setItem('token', data.token);
+                    sessionStorage.setItem('userId', data.user.id);
                     this.goToHome(data);
                     this.presentToast(data.msg);
                 }else{

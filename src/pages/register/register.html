@@ -19,6 +19,10 @@
             <ion-label>E-mail</ion-label>
             <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label>Sou voluntário</ion-label>
+            <ion-checkbox [(ngModel)]="voluntary" name="voluntary"></ion-checkbox>
+        </ion-item>
         <hr>
         <ion-item>
             <ion-label>Senha</ion-label>
@@ -27,7 +31,7 @@
 
         <ion-item>
             <ion-label>Confirmar Senha</ion-label>
-            <ion-input type="password" [(ngModel)]="c_password" name="c_password"></ion-input>
+            <ion-input type="password" [(ngModel)]="password_confirmation" name="password_confirmation"></ion-input>
         </ion-item>
 
         </ion-list>

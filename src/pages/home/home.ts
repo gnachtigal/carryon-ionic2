@@ -67,7 +67,9 @@ export class HomePage {
     this.name = navParams.get('name');
     this.email = navParams.get('email');
     this.slides[0].title += navParams.get('name') + '!';
+    console.log(sessionStorage.getItem('token'));
   }
+
 
   slides = [
   {

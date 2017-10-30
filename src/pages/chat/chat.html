@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Conversa com *
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let msg of messages">
+        <h2>{{msg.body}}</h2>
+        <div class="button-effect"></div>
+    </button>
+  </ion-list>
+</ion-content>

@@ -9,19 +9,12 @@
 <ion-content>
   <ion-list>
     <ion-list-header>Últimas conversas</ion-list-header>
-    <button ion-item *ngFor="let user of contacts" (click)="itemSelected(user.id)">
-        <ion-avatar item-start="">
-            <img src="assets/img/avatar-ts-woody.png">
+    <button ion-item *ngFor="let chat of contacts" (click)="openChat(chat.id)">
+        <ion-avatar item-start style="max-width:32px; max-height:32px">
+            <img src="assets/images/chat.png">
         </ion-avatar>
-        <div class="item-inner">
-            <div class="input-wrapper">
-                <ion-label class="label label-ios">
-                 <h2>{{user.name}}</h2>
-                 <p>Last message</p>
-                </ion-label>
-            </div>
-            <ion-note item-end="" class="note note-ios">3:43 pm</ion-note><!---->
-        </div>
+        <h2>{{chat.title}}</h2>
+        <p>Última mensagem</p>
         <div class="button-effect"></div>
     </button>
   </ion-list>
