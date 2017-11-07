@@ -1,6 +1,6 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NavParams } from 'ionic-angular';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'page-home',
@@ -58,35 +58,30 @@ import { NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-    id: number;
-    name: string;
-    email: string
+   voluntary;
 
-  constructor(public navCtrl: NavController, private navParams: NavParams) {
-    this.id = navParams.get('id');
-    this.name = navParams.get('name');
-    this.email = navParams.get('email');
-    this.slides[0].title += navParams.get('name') + '!';
-    console.log(sessionStorage.getItem('token'));
+  constructor(private http: Http, public navCtrl: NavController) {
+      this.http = http;
+      this.voluntary = this.getUser();
   }
 
-
-  slides = [
-  {
-    title: "Seja bem-vindo, ",
-    description: "Sinta-se livre para compartilhar tudo (e somente) o que desejar.",
-    image: "assets/images/thinking.png",
-  },
-  {
-    title: "Faça contatos!",
-    description: "<b>Carry On</b> é uma plataforma de relacionamento entre voluntários e pacientes. Procure ajuda sempre que precisar.",
-    image: "assets/images/smartphone.png",
-  },
-  {
-    title: "Cresça com a gente!",
-    description: "Nós da <b> Carry On </b> lhe desejamos uma ótima experiência. Sinta-se à vontade para reportar erros ou problemas e indicar melhorias.",
-    image: "assets/images/employee.png",
+  getUser(){
+      this.http
+        .get('http://localhost:8000/api/user/getUser/' + sessionStorage.getItem('userId'))
+        .map(res => res.json())
+        .subscribe(
+            data => {
+                if(data.success){
+                    this.voluntary = data.user.voluntary;
+                    return data.user.voluntary;
+                }else{
+                    console.log(sessionStorage.getItem('userId'));
+                }
+            },
+            err => {
+              console.log("ERROR!: ", err);
+            }
+        );
   }
-];
 
 }
