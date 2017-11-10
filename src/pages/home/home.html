@@ -5,6 +5,6 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button full *ngIf="!voluntary">Buscar ajuda voluntária</button>
-  <button ion-button full *ngIf="voluntary">Voluntariar-se</button>
+  <button ion-button full *ngIf="!voluntary" (click)="startSearch()">Buscar ajuda voluntária</button>
+  <button ion-button full *ngIf="voluntary" (click)="setVoluntary()">Voluntariar-se</button>
 </ion-content>

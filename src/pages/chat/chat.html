@@ -1,16 +1,26 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      Conversa com *
+      Conversa com {{title}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let msg of messages">
-        <h2>{{msg.body}}</h2>
-        <div class="button-effect"></div>
-    </button>
-  </ion-list>
+    <ion-list>
+        <ion-item class="chat" *ngFor="let msg of messages" >
+            <li *ngIf="myId == msg.sender_id" class="self">
+              <div class="msg">
+                  <p>{{msg.body}}</p>
+                  <time>{{msg.created_at}}</time>
+              </div>
+            </li>
+            <li *ngIf="myId == msg.receiver" class="other">
+              <div class="msg">
+                <p>{{msg.body}}</p>
+                <time>{{msg.created_at}}</time>
+              </div>
+            </li>
+        </ion-item>
+    </ion-list>
 </ion-content>

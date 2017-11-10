@@ -16,7 +16,6 @@ export class ContactsPage {
     this.http = http;
     this.contacts = this.getContacts();
   }
-  //
 
 
   getContacts() {

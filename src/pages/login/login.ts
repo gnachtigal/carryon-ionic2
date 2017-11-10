@@ -79,7 +79,7 @@ export class LoginPage {
 
   login() {
       let body = new FormData();
-      //   let headers = new Headers({ 'Content-Type': 'application/json'});
+      // let headers = new Headers({ 'Content-Type': 'application/json'});
       //   let options = new RequestOptions({ headers: headers });
       body.append('email', this.email);
       body.append('password', this.password);
@@ -89,6 +89,7 @@ export class LoginPage {
         .subscribe(
             data => {
                 if(data.success){
+                    // console.log(data);
                     sessionStorage.setItem('token', data.token);
                     sessionStorage.setItem('userId', data.user.id);
                     this.goToHome(data);
