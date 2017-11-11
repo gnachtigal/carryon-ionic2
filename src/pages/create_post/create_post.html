@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Nova postagem</ion-title>
+    </ion-navbar>
+  </ion-header>
+<ion-content>
+    <div padding>
+        <form (ngSubmit)="create()">
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                    <ion-item>
+                        <ion-label>Título</ion-label>
+                        <ion-input type="text" [(ngModel)]="title" name="title"></ion-input>
+                    </ion-item>
+                    <hr>
+                    <ion-item>
+                        <ion-textarea placeholder="Descreva aqui sua postagem" name="body" [(ngModel)]="body"></ion-textarea>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <button ion-button type="submit">Enviar</button>
+              </ion-col>
+            </ion-row>
+        </form>
+    </div>
+</ion-content>

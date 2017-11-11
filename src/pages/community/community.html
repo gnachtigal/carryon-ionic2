@@ -7,5 +7,53 @@
 </ion-header>
 
 <ion-content padding>
-
+    <ion-fab right bottom>
+        <button ion-fab mini (click)="goToCreate()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+    <ion-segment>
+      <ion-segment-button value="new" (ionSelect)="getPosts('new')">
+        Novos
+      </ion-segment-button>
+      <ion-segment-button value="all" (ionSelect)="getPosts('all')">
+        Todos
+      </ion-segment-button>
+      <ion-segment-button value="mine" (ionSelect)="getPosts('mine')">
+        Meus
+      </ion-segment-button>
+    </ion-segment>
+    <ion-list>
+      <ion-card *ngFor="let post of posts" (click)="openPost(post.id)">
+          <ion-item>
+              <ion-avatar item-start>
+                  <img src="assets/images/user.png">
+              </ion-avatar>
+              <h2>{{post.author.name}}</h2>
+              <p>{{post.created_at}}</p>
+          </ion-item>
+          <!-- <img class="post_image" src="assets/images/post.jpg"> -->
+          <ion-card-content>
+              <b>{{post.title}}</b>
+              <p class="body">{{post.body}}</p>
+          </ion-card-content>
+          <ion-row>
+              <ion-col>
+                  <button ion-button icon-left clear small (click)="likePost(post.id)">
+                      <ion-icon name="thumbs-up"></ion-icon>
+                      <div>{{post.likes_count}}</div>
+                  </button>
+              </ion-col>
+              <!-- <ion-col>
+                  <button ion-button icon-left clear small>
+                      <ion-icon name="text"></ion-icon>
+                      <div>{{post.comments_count}}</div>
+                  </button>
+              </ion-col> -->
+              <!-- <ion-col center text-center>
+                  <ion-note>
+                      {{post.created_at}}
+                  </ion-note>
+              </ion-col> -->
+          </ion-row>
+      </ion-card>
+    </ion-list>
 </ion-content>

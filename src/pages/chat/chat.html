@@ -6,21 +6,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="home">
     <ion-list>
-        <ion-item class="chat" *ngFor="let msg of messages" >
-            <li *ngIf="myId == msg.sender_id" class="self">
-              <div class="msg">
-                  <p>{{msg.body}}</p>
-                  <time>{{msg.created_at}}</time>
-              </div>
-            </li>
-            <li *ngIf="myId == msg.receiver" class="other">
-              <div class="msg">
-                <p>{{msg.body}}</p>
-                <time>{{msg.created_at}}</time>
-              </div>
-            </li>
-        </ion-item>
+        <ion-item *ngFor="let message of messages">{{message}}</ion-item>
     </ion-list>
+
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-input>
+            <input type="text" [(ngModel)]="body" name="body"placeholder="Message..." />
+        </ion-input>
+        <button right (click)="sendMessage(body)">Send</button>
+    </ion-toolbar>
+</ion-footer>

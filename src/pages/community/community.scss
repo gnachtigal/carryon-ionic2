@@ -1,3 +1,8 @@
 page-community {
-
+    p.body{
+        max-height: 50px;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }

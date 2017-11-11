@@ -12,6 +12,8 @@ import { ContactsPage } from '../pages/contacts/contacts';
 import { ChatPage } from '../pages/chat/chat';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { PostPage } from '../pages/post/post';
+import { CreatePostPage } from '../pages/create_post/create_post';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,6 +31,8 @@ import { HttpModule } from '@angular/http';
     ContactsPage,
     CommunityPage,
     ChatPage,
+    PostPage,
+    CreatePostPage,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ import { HttpModule } from '@angular/http';
     ContactsPage,
     CommunityPage,
     ChatPage,
+    PostPage,
+    CreatePostPage,
   ],
   providers: [StatusBar]
 })
