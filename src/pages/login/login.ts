@@ -1,15 +1,15 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { RegisterPage } from '../register/register';
 import { TabsPage } from '../tabs/tabs';
 import { ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-
   animations: [
 
     //For the logo
@@ -80,11 +80,11 @@ export class LoginPage {
   login() {
       let body = new FormData();
       // let headers = new Headers({ 'Content-Type': 'application/json'});
-      //   let options = new RequestOptions({ headers: headers });
+      // let options = new RequestOptions({ headers: headers });
       body.append('email', this.email);
       body.append('password', this.password);
       this.http
-        .post('http://localhost:8000/api/login', body)
+        .post(API_ENDPOINT + '/api/login', body)
         .map(res => res.json())
         .subscribe(
             data => {

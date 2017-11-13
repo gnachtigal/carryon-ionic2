@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { NavParams } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-post',
@@ -27,7 +28,7 @@ export class PostPage {
 
   getContent(postId) {
       this.http
-        .get('http://localhost:8000/api/post/show/' + postId)
+        .get(API_ENDPOINT + '/api/post/show/' + postId)
         .map(res => res.json())
         .subscribe(
             data => {
@@ -50,7 +51,7 @@ export class PostPage {
       let body = new FormData();
       body.append('date', date);
       this.http
-        .post('http://localhost:8000/api/post/getParsedDate', body)
+        .post(API_ENDPOINT + '/api/post/getParsedDate', body)
         .map(res => res.json())
         .subscribe(
             data => {
@@ -65,7 +66,7 @@ export class PostPage {
 
   getLikes(postId){
       this.http
-        .get('http://localhost:8000/api/post/getLikes/' + postId)
+        .get(API_ENDPOINT + '/api/post/getLikes/' + postId)
         .map(res => res.json())
         .subscribe(
             data => {
@@ -80,7 +81,7 @@ export class PostPage {
 
   likePost(postId){
       this.http
-        .get('http://localhost:8000/api/post/likePost/' + postId +  '/' + sessionStorage.getItem('userId'))
+        .get(API_ENDPOINT + '/api/post/likePost/' + postId +  '/' + sessionStorage.getItem('userId'))
         .map(res => res.json())
         .subscribe(
             data => {
@@ -96,7 +97,7 @@ export class PostPage {
 
   favoritePost(postId){
       this.http
-        .get('http://localhost:8000/api/post/favoritePost/' + postId + '/' +  sessionStorage.getItem('userId'))
+        .get(API_ENDPOINT + '/api/post/favoritePost/' + postId + '/' +  sessionStorage.getItem('userId'))
         .map(res => res.json())
         .subscribe(
             data => {

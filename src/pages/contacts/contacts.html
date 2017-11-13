@@ -11,10 +11,10 @@
     <ion-list-header>Últimas conversas</ion-list-header>
     <button ion-item *ngFor="let chat of contacts" (click)="openChat(chat.id)">
         <ion-avatar item-start style="max-width:32px; max-height:32px">
-            <img src="assets/images/chat.png">
+            <img src="assets/images/user.png">
         </ion-avatar>
-        <h2>{{chat.title}}</h2>
-        <p>Última mensagem</p>
+        <h2>{{chat.contact.name}}</h2>
+        <p *ngIf="chat.messages.length > 0">{{ chat.messages[chat.messages.length - 1].body }}</p>
         <div class="button-effect"></div>
     </button>
   </ion-list>

@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { PostPage } from '../post/post';
 import { CreatePostPage } from '../create_post/create_post';
 import { ModalController } from 'ionic-angular';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-community',
@@ -21,7 +22,7 @@ export class CommunityPage {
 
     getPosts(filter) {
         this.http
-          .get('http://localhost:8000/api/post/index/' + filter + '/' +  sessionStorage.getItem('userId'))
+          .get(API_ENDPOINT + '/api/post/index/' + filter + '/' +  sessionStorage.getItem('userId'))
           .map(res => res.json())
           .subscribe(
               data => {
@@ -47,7 +48,7 @@ export class CommunityPage {
 
     likePost(postId){
         this.http
-          .get('http://localhost:8000/api/post/likePost/' + postId +  '/' + sessionStorage.getItem('userId'))
+          .get(API_ENDPOINT + '/api/post/likePost/' + postId +  '/' + sessionStorage.getItem('userId'))
           .map(res => res.json())
           .subscribe(
               data => {
@@ -62,7 +63,7 @@ export class CommunityPage {
 
     favoritePost(postId){
         this.http
-          .get('http://localhost:8000/api/post/favoritePost/' + postId + '/' +  sessionStorage.getItem('userId'))
+          .get(API_ENDPOINT + '/api/post/favoritePost/' + postId + '/' +  sessionStorage.getItem('userId'))
           .map(res => res.json())
           .subscribe(
               data => {

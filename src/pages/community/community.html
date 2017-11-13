@@ -22,8 +22,8 @@
       </ion-segment-button>
     </ion-segment>
     <ion-list>
-      <ion-card *ngFor="let post of posts" (click)="openPost(post.id)">
-          <ion-item>
+      <ion-card *ngFor="let post of posts">
+          <ion-item (click)="openPost(post.id)">
               <ion-avatar item-start>
                   <img src="assets/images/user.png">
               </ion-avatar>
@@ -31,7 +31,7 @@
               <p>{{post.created_at}}</p>
           </ion-item>
           <!-- <img class="post_image" src="assets/images/post.jpg"> -->
-          <ion-card-content>
+          <ion-card-content (click)="openPost(post.id)">
               <b>{{post.title}}</b>
               <p class="body">{{post.body}}</p>
           </ion-card-content>

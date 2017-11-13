@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ChatPage } from '../chat/chat';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-contacts',
@@ -20,10 +21,11 @@ export class ContactsPage {
 
   getContacts() {
       this.http
-        .get('http://localhost:8000/api/chat/' + sessionStorage.getItem('userId'))
+        .get(API_ENDPOINT + '/api/chat/' + sessionStorage.getItem('userId'))
         .map(res => res.json())
         .subscribe(
             data => {
+                console.log(data.chats);
                 this.contacts = data.chats;
                 return data.chats;
             },

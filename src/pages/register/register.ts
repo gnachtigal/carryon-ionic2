@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { PresentationPage } from '../presentation/presentation';
 import { ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-register',
@@ -89,7 +90,7 @@ export class RegisterPage {
       body.append('password_confirmation', this.password_confirmation);
       console.log(this.voluntary);
       this.http
-        .post('http://localhost:8000/api/register', body)
+        .post(API_ENDPOINT + '/api/register', body)
         .map(res => res.json())
         .subscribe(
             data => {

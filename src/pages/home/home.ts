@@ -5,6 +5,7 @@ import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ChatPage } from '../chat/chat';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-home',
@@ -71,7 +72,7 @@ export class HomePage {
 
   getUser(){
       this.http
-        .get('http://localhost:8000/api/user/getUser/' + sessionStorage.getItem('userId'))
+        .get(API_ENDPOINT + '/api/user/getUser/' + sessionStorage.getItem('userId'))
         .map(res => res.json())
         .subscribe(
             data => {
@@ -91,7 +92,7 @@ export class HomePage {
       let body = new FormData();
       body.append('id', sessionStorage.getItem('userId'));
       this.http
-        .post('http://localhost:8000/api/chat/setVoluntary/', body)
+        .post(API_ENDPOINT + '/api/chat/setVoluntary/', body)
         .map(res => res.json())
         .subscribe(
             data => {
@@ -114,7 +115,7 @@ export class HomePage {
 
   searchVoluntary(){
       this.http
-        .get('http://localhost:8000/api/chat/searchVoluntary/' + sessionStorage.getItem('userId'))
+        .get(API_ENDPOINT + '/api/chat/searchVoluntary/' + sessionStorage.getItem('userId'))
         .map(res => res.json())
         .subscribe(
             data => {

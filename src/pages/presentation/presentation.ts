@@ -4,6 +4,7 @@ import { NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { ToastController } from 'ionic-angular';
 import { Http } from '@angular/http';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-presentation',
@@ -100,7 +101,7 @@ export class PresentationPage {
 
     getUser(id){
         this.http
-          .get('http://localhost:8000/api/user/getAuthenticatedUser/' + id)
+          .get(API_ENDPOINT + '/api/user/getAuthenticatedUser/' + id)
           .map(res => res.json())
           .subscribe(
               data => {

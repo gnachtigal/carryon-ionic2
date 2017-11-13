@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { PresentationPage } from '../presentation/presentation';
 import { CommunityPage } from '../community/community';
 import { ToastController } from 'ionic-angular';
+import { API_ENDPOINT } from '../../app/constants';
 
 @Component({
   selector: 'page-create-post',
@@ -26,7 +27,7 @@ export class CreatePostPage {
       body.append('body', this.body);
       body.append('user_id', sessionStorage.getItem('userId'));
       this.http
-        .post('http://localhost:8000/api/post/create', body)
+        .post(API_ENDPOINT + '/api/post/create', body)
         .map(res => res.json())
         .subscribe(
             data => {

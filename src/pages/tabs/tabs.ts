@@ -6,6 +6,7 @@ import { CommunityPage } from '../community/community';
 import { ContactsPage } from '../contacts/contacts';
 import { HomePage } from '../home/home';
 
+
 @Component({
   templateUrl: 'tabs.html',
   selector: 'page-tabs',
